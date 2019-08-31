@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.nayam.itunesdiscover.viewmodel.TrackViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_5sdp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imageArtWork"
+            android:transitionName="artwork"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_margin="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/image_list_placeholder"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:outlineProvider="none"
+            android:elevation="@dimen/_15sdp"
+            app:riv_corner_radius="@dimen/_10sdp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:elevation="0dp"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardPreventCornerOverlap="false"
+            app:layout_constraintTop_toTopOf="@+id/imageArtWork"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/imageArtWork">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:visibility="visible"
+                    android:id="@+id/textLastVisited"
+                    android:transitionName="trackGenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_gravity="bottom"
+                    android:text="Last Viewed: Aug 19, 2019"
+                    android:textSize="@dimen/_8sdp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="@font/montserrat_thin"/>
+
+                <TextView
+                    android:id="@+id/textTrackName"
+                    android:transitionName="trackTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    tools:text="Moonlight"
+                    android:fontFamily="@font/montserrat_black"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:id="@+id/textPrice"
+                    android:transitionName="trackPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="USD 19.99"
+                    android:textSize="@dimen/_9sdp"
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/montserrat_light"/>
+
+                <TextView
+                    android:id="@+id/textGenre"
+                    android:transitionName="trackGenre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:layout_gravity="bottom"
+                    tools:text="Action &amp; Adventure"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="@font/montserrat_semi_bold"/>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
