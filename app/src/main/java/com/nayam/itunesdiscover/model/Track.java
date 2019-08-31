@@ -1,5 +1,12 @@
 package com.nayam.itunesdiscover.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.nayam.itunesdiscover.R;
+import com.squareup.picasso.Picasso;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +42,9 @@ public class Track {
     private String country;
     private String currency;
     private String primaryGenreName;
+    private String contentAdvisoryRating;
+    private String shortDescription;
+    private String longDescription;
     private Boolean isStreamable;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -74,12 +84,20 @@ public class Track {
      * @param artistViewUrl
      * @param trackPrice
      * @param isStreamable
+     * @param contentAdvisoryRating
+     * @param shortDescription
+     * @param longDescription
      * @param artistName
      * @param artworkUrl100
      * @param trackViewUrl
      * @param collectionPrice
      */
-    public Track(String wrapperType, String kind, Integer artistId, Integer collectionId, Integer trackId, String artistName, String collectionName, String trackName, String collectionCensoredName, String trackCensoredName, String artistViewUrl, String collectionViewUrl, String trackViewUrl, String previewUrl, String artworkUrl30, String artworkUrl60, String artworkUrl100, Double collectionPrice, Double trackPrice, String releaseDate, String collectionExplicitness, String trackExplicitness, Integer discCount, Integer discNumber, Integer trackCount, Integer trackNumber, Integer trackTimeMillis, String country, String currency, String primaryGenreName, Boolean isStreamable) {
+    public Track(String wrapperType, String kind, Integer artistId, Integer collectionId, Integer trackId, String artistName, String collectionName,
+                 String trackName, String collectionCensoredName, String trackCensoredName, String artistViewUrl, String collectionViewUrl,
+                 String trackViewUrl, String previewUrl, String artworkUrl30, String artworkUrl60, String artworkUrl100, Double collectionPrice,
+                 Double trackPrice, String releaseDate, String collectionExplicitness, String trackExplicitness, Integer discCount, Integer discNumber,
+                 Integer trackCount, Integer trackNumber, Integer trackTimeMillis, String country, String currency, String primaryGenreName,
+                 String contentAdvisoryRating, String shortDescription, String longDescription, Boolean isStreamable) {
         super();
         this.wrapperType = wrapperType;
         this.kind = kind;
@@ -111,6 +129,9 @@ public class Track {
         this.country = country;
         this.currency = currency;
         this.primaryGenreName = primaryGenreName;
+        this.contentAdvisoryRating = contentAdvisoryRating;
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
         this.isStreamable = isStreamable;
     }
 
@@ -370,4 +391,37 @@ public class Track {
         this.additionalProperties.put(name, value);
     }
 
+    @BindingAdapter({"artwork"})
+    public static void loadImage(ImageView imageView, String imageURL) {
+        Picasso.get()
+                .load(imageURL)
+                .placeholder(R.drawable.image_list_placeholder)
+                .fit()
+                .into(imageView);
+
+    }
+
+    public String getContentAdvisoryRating() {
+        return contentAdvisoryRating;
+    }
+
+    public void setContentAdvisoryRating(String contentAdvisoryRating) {
+        this.contentAdvisoryRating = contentAdvisoryRating;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
 }

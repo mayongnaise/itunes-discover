@@ -3,17 +3,34 @@
     <string name="action_settings">Settings</string>
     <string name="search_hint">Search title, artists or albums</string>
     <string-array name="category_selection">
-        <item name="all">All</item>
-        <item name="movie">Movie</item>
-        <item name="tvShow">TV Show</item>
-        <item name="shortFilm">Short Film</item>
-        <item name="music">Music</item>
-        <item name="musicVideo">Music Video</item>
-        <item name="ebook">eBook</item>
-        <item name="audiobook">Audio Book</item>
-        <item name="podcast">Podcast</item>
-        <item name="software">Software</item>
+        <item>All</item>
+        <item>Movie</item>
+        <item>TV Show</item>
+        <item>Short Film</item>
+        <item>Music</item>
+        <item>Music Video</item>
+        <item>eBook</item>
+        <item>Audio Book</item>
+        <item>Podcast</item>
+        <item>Software</item>
+    </string-array>
+    <string-array name="category_selection_keys">
+        <item>all</item>
+        <item>movie</item>
+        <item>tvShow</item>
+        <item>shortFilm</item>
+        <item>music</item>
+        <item>musicVideo</item>
+        <item>ebook</item>
+        <item>audiobook</item>
+        <item>podcast</item>
+        <item>software</item>
     </string-array>
     <string name="title_activity_track_detail">TrackDetailActivity</string>
+    <string name="country_value_default">AU</string>
+    <string name="search_value_default">star</string>
     <string name="track_default_description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+
+    <string name="last_visit">Your last search was:</string>
+    <string name="required">Required!</string>
 </resources>

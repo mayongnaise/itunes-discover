@@ -1,5 +1,7 @@
 package com.nayam.itunesdiscover.viewmodel;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -21,16 +23,15 @@ public class TrackViewModel extends ViewModel {
     private MutableLiveData<TrackResponse> mutableLiveData;
     private TrackRepository trackRepository;
 
-    public void init(){
-        if (mutableLiveData != null){
-            return;
-        }
-        trackRepository = TrackRepository.getInstance();
-        mutableLiveData = trackRepository.searchTrack("", "PH", "all");
+    public void searchTrack(SearchViewModel searchViewModel, Context context){
 
+        trackRepository = TrackRepository.getInstance();
+        mutableLiveData = trackRepository.searchTrack(searchViewModel.getTerm(context), searchViewModel.getCountry(context),
+                searchViewModel.getMediaType(context));
     }
 
     public LiveData<TrackResponse> getTrackRepository() {
         return mutableLiveData;
     }
+
 }

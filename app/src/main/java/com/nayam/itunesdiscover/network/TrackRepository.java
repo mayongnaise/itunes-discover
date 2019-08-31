@@ -4,7 +4,9 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.nayam.itunesdiscover.model.Track;
 import com.nayam.itunesdiscover.model.TrackResponse;
+import com.nayam.itunesdiscover.utility.SharedPreferenceManager;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,23 +43,23 @@ public class TrackRepository {
     }
 
     public MutableLiveData<TrackResponse> searchTrack(String term, String country, String media){
-        MutableLiveData<TrackResponse> newsData = new MutableLiveData<>();
+        MutableLiveData<TrackResponse> trackData = new MutableLiveData<>();
         trackApi.searchTracks(term, country, media).enqueue(new Callback<TrackResponse>() {
             @Override
             public void onResponse(@NotNull Call<TrackResponse> call,
                                    @NotNull Response<TrackResponse> response) {
                 Log.d(TAG, "Response: " + response.raw());
                 if (response.isSuccessful()){
-                    newsData.setValue(response.body());
+                    trackData.setValue(response.body());
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<TrackResponse> call, @NotNull Throwable t) {
                 t.printStackTrace();
-                newsData.setValue(null);
+                trackData.setValue(null);
             }
         });
-        return newsData;
+        return trackData;
     }
 }

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
-            name="viewModel"
-            type="com.nayam.itunesdiscover.viewmodel.TrackViewModel" />
+            name="track"
+            type="com.nayam.itunesdiscover.model.Track" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_5sdp"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:layout_height="wrap_content">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageArtWork"
@@ -20,13 +21,14 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_80sdp"
             android:layout_margin="@dimen/_5sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/image_list_placeholder"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             android:outlineProvider="none"
             android:elevation="@dimen/_15sdp"
+            bind:artwork="@{track.artworkUrl100}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="@dimen/_10sdp"/>
 
         <androidx.cardview.widget.CardView
@@ -54,19 +56,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:visibility="visible"
-                    android:id="@+id/textLastVisited"
-                    android:transitionName="trackGenre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:layout_gravity="bottom"
-                    android:text="Last Viewed: Aug 19, 2019"
-                    android:textSize="@dimen/_8sdp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:fontFamily="@font/montserrat_thin"/>
-
-                <TextView
                     android:id="@+id/textTrackName"
                     android:transitionName="trackTitle"
                     android:layout_width="wrap_content"
@@ -74,6 +63,7 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     tools:text="Moonlight"
+                    android:text="@{track.trackName}"
                     android:fontFamily="@font/montserrat_black"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="@color/colorPrimaryDark" />
@@ -84,6 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="USD 19.99"
+                    android:text="@{track.currency + ` ` + track.trackPrice}"
                     android:textSize="@dimen/_9sdp"
                     android:textColor="@color/colorAccent"
                     android:fontFamily="@font/montserrat_light"/>
@@ -96,6 +87,7 @@
                     android:gravity="bottom"
                     android:layout_gravity="bottom"
                     tools:text="Action &amp; Adventure"
+                    android:text="@{track.primaryGenreName}"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textSize="@dimen/_10sdp"
