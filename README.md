@@ -1,2 +1,2 @@
-# itunes-discover
+# iTunes Discover
 Appetiser Apps Code Challenge
