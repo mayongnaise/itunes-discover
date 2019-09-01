@@ -1,28 +1,30 @@
 package com.nayam.itunesdiscover.view.ui;
 
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
-import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hbb20.CountryCodePicker;
 import com.nayam.itunesdiscover.R;
+import com.nayam.itunesdiscover.data.local.SharedPreferenceHelper;
+import com.nayam.itunesdiscover.data.local.SharedPreferenceManager;
 import com.nayam.itunesdiscover.databinding.ActivityMainBinding;
 import com.nayam.itunesdiscover.model.Track;
+import com.nayam.itunesdiscover.model.TrackResponse;
+import com.nayam.itunesdiscover.utility.Constants;
 import com.nayam.itunesdiscover.utility.Utility;
 import com.nayam.itunesdiscover.view.adapter.TrackRecyclerViewAdapter;
-import com.nayam.itunesdiscover.viewmodel.SearchViewModel;
+import com.nayam.itunesdiscover.viewmodel.MainViewModel;
 import com.nayam.itunesdiscover.viewmodel.TrackViewModel;
 
 import java.util.ArrayList;
@@ -30,21 +32,18 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import segmented_control.widget.custom.android.com.segmentedcontrol.SegmentedControl;
-import segmented_control.widget.custom.android.com.segmentedcontrol.item_row_column.SegmentViewHolder;
-import segmented_control.widget.custom.android.com.segmentedcontrol.listeners.OnSegmentClickListener;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding activityMainBinding;
 
-    ArrayList<Track> trackArrayList = new ArrayList<>();
-    TrackRecyclerViewAdapter trackRecyclerViewAdapter;
-
     @BindView(R.id.recyclerViewTrack)
     RecyclerView rvTrackList;
+
+    @BindView(R.id.pickerCountry)
+    CountryCodePicker pkCountry;
 
     @BindView(R.id.segmentedCategories)
     SegmentedControl smCategories;
@@ -52,8 +51,19 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.editTextTerm)
     EditText etTerm;
 
+    ArrayList<Track> trackArrayList = new ArrayList<>();
+    TrackRecyclerViewAdapter trackRecyclerViewAdapter;
+
     TrackViewModel trackViewModel;
-    SearchViewModel searchViewModel;
+    MainViewModel mainViewModel;
+
+    SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper();
+
+    @Override
+    public void onResume() {
+        sharedPreferenceHelper.setLastActivity(getClass().getSimpleName());
+        super.onResume();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,47 +74,64 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
-        searchViewModel.init(MainActivity.this);
+        setViewModel();
 
-        trackViewModel = ViewModelProviders.of(this).get(TrackViewModel.class);
-        trackViewModel.searchTrack(searchViewModel, MainActivity.this);
+        setUI();
 
-        setSearchTerm();
-
-        setCategories();
-
-        setLastSearchDate();
-
-        loadTrackList();
-
-        setupRecyclerView();
+        callSearch();
 
     }
 
-    private void loadTrackList(){
-        trackViewModel.getTrackRepository().observe(this, trackResponse -> {
-            List<Track> tracks = trackResponse.getResults();
-            trackArrayList.addAll(tracks);
-            trackRecyclerViewAdapter.notifyDataSetChanged();
-            searchViewModel.setLastSearchDate(this, Utility.getCurrentDateTime());
+    public void setViewModel(){
+
+        trackViewModel = ViewModelProviders.of(this).get(TrackViewModel.class);
+
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+
+        activityMainBinding.layoutHeader.setViewModel(mainViewModel);
+        activityMainBinding.layoutContentMain.setViewModel(mainViewModel);
+
+    }
+
+    public void setUI(){
+
+        mainViewModel.setSearchTerm(sharedPreferenceHelper.getTerm());
+
+        mainViewModel.setCountry(sharedPreferenceHelper.getCountry());
+        pkCountry.setCountryForNameCode(sharedPreferenceHelper.getCountry());
+        pkCountry.setCountryPreference(String.format("%s,%s", Utility.getDeviceCountryCode(MainActivity.this), Constants.DEFAULT_COUNTRY));
+
+        mainViewModel.setLastSearch(Utility.formatDate(sharedPreferenceHelper.getLastSearchDate()));
+
+        activityMainBinding.layoutHeader.segmentedCategories.setSelectedSegment(sharedPreferenceHelper.getMediaTypePosition());
+
+        activityMainBinding.layoutContentMain.swipeRefreshLayout.setOnRefreshListener(this::attemptSearch);
+
+        setupCountryChangeListener();
+
+        setupCategoryFilterListener();
+
+        setupRecyclerView();
+    }
+
+    private void setupCountryChangeListener(){
+        mainViewModel.getCountry().observe(this, country -> {
+            sharedPreferenceHelper.setCountry(country);
+            callSearch();
         });
 
     }
 
-    private void performSearch(){
-        String term = etTerm.getText().toString();
-        if(TextUtils.isEmpty(term)) {
-            Utility.setEditTextError(etTerm, getString(R.string.required));
-            return;
-        }
+    private void setupCategoryFilterListener(){
 
-        searchViewModel.setTerm(MainActivity.this, term);
+        smCategories.addOnSegmentClickListener(segmentViewHolder -> {
 
-        trackArrayList.clear();
-        trackViewModel.searchTrack(searchViewModel,MainActivity.this);
+            sharedPreferenceHelper.setMediaTypePosition(segmentViewHolder.getAbsolutePosition());
 
-        loadTrackList();
+            attemptSearch();
+
+        });
+
     }
 
     private void setupRecyclerView() {
@@ -119,40 +146,54 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setSearchTerm(){
-        activityMainBinding.layoutHeader.setSearchTerm(searchViewModel.getTerm(MainActivity.this));
-    }
-
-    private void setCategories(){
-        smCategories.setSelectedSegment(searchViewModel.getMediaTypePosition(MainActivity.this));
-    }
-
-    private void setLastSearchDate(){
-        activityMainBinding.layoutHeader.setLastSearch(Utility.formatDate(searchViewModel.getLastSearchDate(this)));
-    }
-
-    @OnClick(R.id.imageFilter)
-    public void categoryVisibility(){
-        smCategories.setVisibility(smCategories.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-        smCategories.addOnSegmentClickListener(segmentViewHolder -> {
-            int mediaTypePosition = segmentViewHolder.getAbsolutePosition();
-            searchViewModel.setMediaTypePosition(MainActivity.this, mediaTypePosition);
-            String mediaType = getResources().getStringArray(R.array.category_selection_keys)[mediaTypePosition];
-            searchViewModel.setMediaType(MainActivity.this, mediaType);
-
-            performSearch();
-
-        });
-    }
-
     @OnEditorAction(R.id.editTextTerm)
     public boolean onEditorAction(int actionId){
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             Utility.hideKeyboard(MainActivity.this, etTerm);
-            performSearch();
+            attemptSearch();
             return true;
         }
         return false;
+    }
+
+    private void attemptSearch(){
+        String term = etTerm.getText().toString();
+        if(TextUtils.isEmpty(term)) {
+            Utility.setEditTextError(etTerm, getString(R.string.required));
+            return;
+        }
+
+        sharedPreferenceHelper.setTerm(term);
+
+        sharedPreferenceHelper.setLastSearchDate(Utility.getCurrentDateTime());
+
+        mainViewModel.setLastSearch(Utility.formatDate(sharedPreferenceHelper.getLastSearchDate()));
+
+        callSearch();
+
+    }
+
+    public void callSearch(){
+        trackArrayList.clear();
+        trackViewModel.searchTrack(sharedPreferenceHelper.getTerm(), sharedPreferenceHelper.getCountry(), Utility.getMediaType(MainActivity.this, sharedPreferenceHelper.getMediaTypePosition()));
+        loadTrackList();
+    }
+
+    private void loadTrackList(){
+        mainViewModel.setRefreshing(true);
+        trackViewModel.getTrackRepository().observe(this, trackResponseResult -> {
+            if(trackResponseResult.getResponseBody().isSuccessful()){
+                List<Track> tracks = ((TrackResponse) trackResponseResult.getTrackResponse()).getResults();
+                trackArrayList.addAll(tracks);
+                trackRecyclerViewAdapter.notifyDataSetChanged();
+            }
+            else{
+                if(!Utility.isNetworkAvailable(MainActivity.this))
+                    Toast.makeText(MainActivity.this, getString(R.string.no_network_available), Toast.LENGTH_SHORT).show();
+            }
+            mainViewModel.setRefreshing(false);
+        });
+
     }
 
 }

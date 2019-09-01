@@ -43,6 +43,7 @@ public class Track {
     private String currency;
     private String primaryGenreName;
     private String contentAdvisoryRating;
+    private String description;
     private String shortDescription;
     private String longDescription;
     private Boolean isStreamable;
@@ -85,6 +86,7 @@ public class Track {
      * @param trackPrice
      * @param isStreamable
      * @param contentAdvisoryRating
+     * @param description
      * @param shortDescription
      * @param longDescription
      * @param artistName
@@ -97,7 +99,7 @@ public class Track {
                  String trackViewUrl, String previewUrl, String artworkUrl30, String artworkUrl60, String artworkUrl100, Double collectionPrice,
                  Double trackPrice, String releaseDate, String collectionExplicitness, String trackExplicitness, Integer discCount, Integer discNumber,
                  Integer trackCount, Integer trackNumber, Integer trackTimeMillis, String country, String currency, String primaryGenreName,
-                 String contentAdvisoryRating, String shortDescription, String longDescription, Boolean isStreamable) {
+                 String contentAdvisoryRating, String description, String shortDescription, String longDescription, Boolean isStreamable) {
         super();
         this.wrapperType = wrapperType;
         this.kind = kind;
@@ -130,6 +132,7 @@ public class Track {
         this.currency = currency;
         this.primaryGenreName = primaryGenreName;
         this.contentAdvisoryRating = contentAdvisoryRating;
+        this.description = description;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
         this.isStreamable = isStreamable;
@@ -423,5 +426,13 @@ public class Track {
 
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

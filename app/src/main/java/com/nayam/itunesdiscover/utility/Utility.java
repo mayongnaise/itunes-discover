@@ -2,21 +2,20 @@ package com.nayam.itunesdiscover.utility;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.text.Html;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-
-import androidx.core.content.ContextCompat;
+import android.widget.Toast;
 
 import com.nayam.itunesdiscover.R;
-import com.nayam.itunesdiscover.view.ui.MainActivity;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -76,5 +75,21 @@ public class Utility {
         editText.setError(Html.fromHtml("<font color='red'>" + error + "</font>"));
     }
 
+    public static String getMediaType(Activity activity, int position){
+        return activity.getResources().getStringArray(R.array.category_selection_keys)[position];
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm != null ? cm.getActiveNetworkInfo() : null;
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+    }
+
+    public static String getDeviceCountryCode(Context context){
+        return context.getResources().getConfiguration().locale.getCountry();
+    }
 
 }

@@ -1,17 +1,17 @@
 package com.nayam.itunesdiscover.view.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 import com.nayam.itunesdiscover.R;
+import com.nayam.itunesdiscover.data.local.SharedPreferenceHelper;
 import com.nayam.itunesdiscover.databinding.ActivityTrackDetailBinding;
+import com.nayam.itunesdiscover.model.Track;
 import com.nayam.itunesdiscover.model.TrackEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,6 +27,26 @@ public class TrackDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar mToolBar;
+
+    SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper();
+
+    boolean fromHistory = false;
+
+    @Override
+    public void onBackPressed(){
+        if(fromHistory){
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onResume() {
+        sharedPreferenceHelper.setLastActivity(getClass().getSimpleName());
+        super.onResume();
+    }
 
     @Override
     public void onDestroy() {
@@ -54,6 +74,14 @@ public class TrackDetailActivity extends AppCompatActivity {
 
         setToolBar();
 
+        Intent intent = getIntent();
+        fromHistory = intent.getBooleanExtra("from_history", false);
+        if(fromHistory){
+            Track lastTrackSaved = convertStringToTrack(sharedPreferenceHelper.getLastTrackSaved());
+            bindings.layoutContentDetail.setTrack(lastTrackSaved);
+            setToolBarTitle(lastTrackSaved);
+        }
+
     }
 
     private void setToolBar(){
@@ -61,15 +89,28 @@ public class TrackDetailActivity extends AppCompatActivity {
         if(getSupportActionBar()!=null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-        mToolBar.setTitle("");
-        mToolBar.setSubtitle("");
+
         mToolBar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEvent(TrackEvent trackEvent) {
-        Log.d("TRACK", "Event: " + trackEvent.getTrack().getArtistName());
+        sharedPreferenceHelper.setLastTrackSaved(convertTrackToString(trackEvent.getTrack()));
         bindings.layoutContentDetail.setTrack(trackEvent.getTrack());
+
+        setToolBarTitle(trackEvent.getTrack());
+
     }
 
+    public void setToolBarTitle(Track track){
+        mToolBar.setTitle(track.getTrackName()==null ? track.getCollectionName() : track.getTrackName());
+    }
+
+    public static String convertTrackToString(Track track){
+        return new Gson().toJson(track);
+    }
+
+    public static Track convertStringToTrack(String track){
+        return new Gson().fromJson(track, Track.class);
+    }
 }

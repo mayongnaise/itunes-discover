@@ -1,12 +1,12 @@
-package com.nayam.itunesdiscover.network;
+package com.nayam.itunesdiscover.data.remote;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.nayam.itunesdiscover.model.Track;
 import com.nayam.itunesdiscover.model.TrackResponse;
-import com.nayam.itunesdiscover.utility.SharedPreferenceManager;
+import com.nayam.itunesdiscover.model.TrackResponseResult;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,16 +42,17 @@ public class TrackRepository {
         trackApi = RetrofitService.createService(TrackApi.class);
     }
 
-    public MutableLiveData<TrackResponse> searchTrack(String term, String country, String media){
-        MutableLiveData<TrackResponse> trackData = new MutableLiveData<>();
+    public MutableLiveData<TrackResponseResult> searchTrack(String term, String country, String media){
+        MutableLiveData<TrackResponseResult> trackData = new MutableLiveData<>();
+
         trackApi.searchTracks(term, country, media).enqueue(new Callback<TrackResponse>() {
             @Override
             public void onResponse(@NotNull Call<TrackResponse> call,
                                    @NotNull Response<TrackResponse> response) {
-                Log.d(TAG, "Response: " + response.raw());
-                if (response.isSuccessful()){
-                    trackData.setValue(response.body());
-                }
+
+                Log.d(TAG, "TRACK" + response.raw());
+
+                trackData.setValue(new TrackResponseResult<>(response.body(), response.raw()));
             }
 
             @Override

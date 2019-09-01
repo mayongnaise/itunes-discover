@@ -2,6 +2,7 @@ package com.nayam.itunesdiscover.view.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.nayam.itunesdiscover.databinding.ItemListBinding;
 import com.nayam.itunesdiscover.model.Track;
 import com.nayam.itunesdiscover.model.TrackEvent;
 import com.nayam.itunesdiscover.view.ui.TrackDetailActivity;
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -45,6 +47,8 @@ public class TrackRecyclerViewAdapter extends RecyclerView.Adapter<TrackRecycler
     public void onBindViewHolder(@NonNull final TrackViewHolder holder, final int position) {
         Track track = mValues.get(position);
         holder.itemListBinding.setTrack(track);
+
+        Log.d("TRACK", track.getArtworkUrl100());
 
         holder.itemListBinding.layoutItem.setOnClickListener(view -> {
 

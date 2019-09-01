@@ -1,13 +1,11 @@
 package com.nayam.itunesdiscover.viewmodel;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.nayam.itunesdiscover.model.TrackResponse;
-import com.nayam.itunesdiscover.network.TrackRepository;
+import com.nayam.itunesdiscover.data.remote.TrackRepository;
+import com.nayam.itunesdiscover.model.TrackResponseResult;
 
 /**
  * @author May Ann Palencia on 31/08/2019
@@ -20,17 +18,15 @@ import com.nayam.itunesdiscover.network.TrackRepository;
  */
 public class TrackViewModel extends ViewModel {
 
-    private MutableLiveData<TrackResponse> mutableLiveData;
+    private MutableLiveData<TrackResponseResult> mutableLiveData;
     private TrackRepository trackRepository;
 
-    public void searchTrack(SearchViewModel searchViewModel, Context context){
-
+    public void searchTrack(String term, String country, String mediaType){
         trackRepository = TrackRepository.getInstance();
-        mutableLiveData = trackRepository.searchTrack(searchViewModel.getTerm(context), searchViewModel.getCountry(context),
-                searchViewModel.getMediaType(context));
+        mutableLiveData = trackRepository.searchTrack(term, country, mediaType);
     }
 
-    public LiveData<TrackResponse> getTrackRepository() {
+    public LiveData<TrackResponseResult> getTrackRepository() {
         return mutableLiveData;
     }
 

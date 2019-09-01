@@ -5,12 +5,9 @@
 
     <data>
         <import type="android.view.View"/>
-        <variable
-            name="lastSearch"
-            type="String" />
-        <variable
-            name="searchTerm"
-            type="String" />
+        <variable name="viewModel"
+            type="com.nayam.itunesdiscover.viewmodel.MainViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,32 +31,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/textCountry"
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/pickerCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/country_value_default"
-            android:textSize="@dimen/_14sdp"
-            android:fontFamily="@font/sf_pro_display_light"
-            android:textColor="@color/colorWhite"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            app:layout_constraintEnd_toStartOf="@+id/imageCountryLogo"
-            app:layout_constraintBottom_toBottomOf="@+id/imageCountryLogo"/>
-
-        <ImageView
-            android:id="@+id/imageCountryLogo"
-            android:transitionName="artWork"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/image_flag_default"
-            android:layout_marginTop="@dimen/_10sdp"
+            app:countryValue="@{viewModel.country}"
+            app:ccp_contentColor="@color/colorWhite"
+            app:ccp_textGravity="LEFT"
+            app:ccp_showNameCode="true"
+            app:ccp_showPhoneCode="false"
+            app:ccp_showFlag="true"
+            app:ccp_clickable="true"
+            app:ccpDialog_keyboardAutoPopup="true"
+            app:ccpDialog_allowSearch="true"
+            app:ccpDialog_showFastScroller="true"
+            app:ccpDialog_backgroundColor="@color/colorPrimary"
+            app:ccpDialog_searchEditTextTint="@color/colorAccent"
+            app:ccpDialog_textColor="@color/colorWhite"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             app:layout_constraintTop_toTopOf="@+id/textAppName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/textAppName"
             tools:ignore="ContentDescription" />
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/layoutSearch"
@@ -73,14 +67,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/editTextTerm"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:hint="@string/search_hint"
@@ -88,25 +81,34 @@
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold"
                     android:textColorHint="@color/colorLightGray3"
-                    android:text="@{searchTerm}"
+                    android:text="@{viewModel.searchTerm}"
                     android:imeOptions="actionSearch"
                     android:padding="@dimen/_10sdp"
                     android:background="@null"
                     android:drawablePadding="@dimen/_5sdp"
                     android:drawableStart="@drawable/ic_search"
                     android:drawableTint="@color/colorAccent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageFilter"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="Autofill" />
 
                 <ImageView
                     android:id="@+id/imageFilter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:layout_gravity="center_vertical|end"
+                    android:onClick="@{() -> viewModel.onCategoryFilterClick(safeUnbox(viewModel.isCategoryFilterVisible.get()))}"
                     android:src="@drawable/ic_filter"
                     android:tint="@color/colorAccent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="ContentDescription" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.cardview.widget.CardView>
@@ -114,6 +116,7 @@
         <segmented_control.widget.custom.android.com.segmentedcontrol.SegmentedControl
             android:visibility="gone"
             android:id="@+id/segmentedCategories"
+            app:animatedVisibility="@{viewModel.isCategoryFilterVisible}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
@@ -142,12 +145,12 @@
             android:drawableStart="@drawable/ic_history"
             android:drawableTint="@color/colorWhite"
             android:drawablePadding="@dimen/_5sdp"
-            android:text="@{@string/last_visit + ` ` + lastSearch}"
+            android:text="@{@string/last_visit + ` ` + viewModel.lastSearch}"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_11sdp"
             android:fontFamily="@font/sf_ui_display_medium"
             tools:text="Your last search was: Sept 1, 2019 12:52am"
-            android:visibility='@{lastSearch.equals("") ? View.GONE : View.VISIBLE}'
+            android:visibility='@{viewModel.lastSearch.equals("") ? View.GONE : View.VISIBLE}'
             app:layout_constraintTop_toBottomOf="@+id/segmentedCategories"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"  />

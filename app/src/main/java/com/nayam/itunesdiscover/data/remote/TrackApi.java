@@ -1,4 +1,4 @@
-package com.nayam.itunesdiscover.network;
+package com.nayam.itunesdiscover.data.remote;
 
 import com.nayam.itunesdiscover.model.TrackResponse;
 

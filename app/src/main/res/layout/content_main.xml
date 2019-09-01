@@ -3,15 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewTrack"
+    <data>
+        <variable name="viewModel"
+            type="com.nayam.itunesdiscover.viewmodel.MainViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        android:padding="@dimen/_5sdp"
-        tools:listitem="@layout/item_list"
-        tools:context=".view.ui.MainActivity"
-        tools:showIn="@layout/activity_main"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            app:refreshVisibility="@{viewModel.isRefreshing}"
+            android:layout_gravity="center">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTrack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_5sdp"
+                tools:listitem="@layout/item_list"
+                tools:context=".view.ui.MainActivity"
+                tools:showIn="@layout/activity_main"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
 
 </layout>
