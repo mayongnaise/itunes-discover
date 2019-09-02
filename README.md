@@ -27,7 +27,7 @@ This is an application created for Appetiser Apps Code Challenge. It is written 
   
 4. Data Persistence
 
-   - Last date of search - displayed above the result list. Since this is a searching application, I think it is more important to display the information about searching instead of visiting the application.
+   - Last date of search - displayed above the result list. Since this is a searching application, I think it is more important to display the information about searching instead of information about the user's visits.
   
    - Last visited screen - application remembers the last activity visited and its content. This is important so the user can still retrieved the last data displayed even if they accidentally kill the app.
   
