@@ -8,6 +8,8 @@ Download APK Installer [here](https://www.dropbox.com/s/0svwineujv7d16h/itunes-d
 
 ![Master List](https://raw.githubusercontent.com/mayongnaise/itunes-discover/master/itunes-discover-master-list.jpg) ![Detail View](https://raw.githubusercontent.com/mayongnaise/itunes-discover/master/itunes-discover-detail-view2.jpg) ![Detail View Collapsed](https://raw.githubusercontent.com/mayongnaise/itunes-discover/master/itunes-discover-detail-view-collapse.jpg)
 
+## Minimum SDK API 23+
+
 
 ## Features
 
