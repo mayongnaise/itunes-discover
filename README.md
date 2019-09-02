@@ -42,7 +42,7 @@ This is an application created for Appetiser Apps Code Challenge. It is written 
    - Even though the network is not available on the user device, result list will be retrieved from a cached repository. If they attempted to perform a new search query, an error message stating that the network is not available will be displayed.
 
 ## UI & Design
-### Generally use of Android Material Design
+### General use of Android Material Design
 
    - Added [Shared Element Transitions](https://developer.android.com/training/transitions/start-activity) from the master list view to the detailed view.
   
