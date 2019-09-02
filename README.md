@@ -2,6 +2,10 @@
 
 This is an application created for Appetiser Apps Code Challenge. It is written in Java and developed using Android MVVM framework.
 
+### Download Application
+
+Download APK Installer [here](https://www.dropbox.com/s/0svwineujv7d16h/itunes-discover_1.0.apk?dl=1)
+
 ## Features
 
 1. Display result list based on iTunes Search API call. Each item or track on the list displayed the following:
