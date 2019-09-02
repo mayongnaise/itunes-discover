@@ -6,7 +6,9 @@ This is an application created for Appetiser Apps Code Challenge. It is written 
 
 Download APK Installer [here](https://www.dropbox.com/s/0svwineujv7d16h/itunes-discover_1.0.apk?dl=1)
 
+![Master List](https://www.dropbox.com/s/suqkx8l81cv62jo/Screenshot_20190902-114957_iTunes%20Discover.jpg?dl=1)
 
+![Detail View](https://www.dropbox.com/s/whnsj95ewhzshhf/Screenshot_20190902-115024_iTunes%20Discover.jpg?dl=0)
 ## Features
 
 1. Display result list based on iTunes Search API call. Each item or track on the list displayed the following:
