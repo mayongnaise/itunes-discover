@@ -2,9 +2,9 @@
 
 This is an application created for Appetiser Apps Code Challenge. It is written in Java and developed using Android MVVM framework.
 
-## Download Application
+## Download
 
-###Download APK Installer [here](https://www.dropbox.com/s/0svwineujv7d16h/itunes-discover_1.0.apk?dl=1)
+### Download APK Installer [here](https://www.dropbox.com/s/0svwineujv7d16h/itunes-discover_1.0.apk?dl=1)
 
 
 ## Features
