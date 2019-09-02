@@ -6,7 +6,7 @@ This is an application created for Appetiser Apps Code Challenge. It is written 
 
 Download APK Installer [here](https://www.dropbox.com/s/0svwineujv7d16h/itunes-discover_1.0.apk?dl=1)
 
-![Master List](https://raw.githubusercontent.com/mayongnaise/itunes-discover/master/itunes-discover-master-list.jpg) ![Detail View](https://raw.githubusercontent.com/mayongnaise/itunes-discover/master/itunes-discover-detail-view.jpg) ![Detail View Collapsed](https://raw.githubusercontent.com/mayongnaise/itunes-discover/master/itunes-discover-detail-view-collapse.jpg)
+![Master List](https://raw.githubusercontent.com/mayongnaise/itunes-discover/master/itunes-discover-master-list.jpg) ![Detail View](https://raw.githubusercontent.com/mayongnaise/itunes-discover/master/itunes-discover-detail-view2.jpg) ![Detail View Collapsed](https://raw.githubusercontent.com/mayongnaise/itunes-discover/master/itunes-discover-detail-view-collapse.jpg)
 
 
 ## Features
