@@ -65,4 +65,11 @@ This is an application created for Appetiser Apps Code Challenge. It is written 
 ## References
 
 iTunes Web Service Documentation: https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#searching)
-  
+
+## Other Libraries
+
+   - [RoundedImageView](https://github.com/vinc3m1/RoundedImageView)
+   - [Retrofit](https://square.github.io/retrofit/)
+   - [ButterKnife](https://jakewharton.github.io/butterknife/)
+   - [EventBus](https://github.com/greenrobot/EventBus)
+   - [SDP](https://github.com/intuit/sdp)
