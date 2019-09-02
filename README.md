@@ -39,7 +39,7 @@ This is an application created for Appetiser Apps Code Challenge. It is written 
   
 5. Offline Support 
 
-   - Even though the network is not available on the user device, result list will be retrieved from a cached repository. If they attempted to perform a new search query, an error message stating the network is not available will be displayed.
+   - Even though the network is not available on the user device, result list will be retrieved from a cached repository. If they attempted to perform a new search query, an error message stating that the network is not available will be displayed.
 
 ## UI & Design
 ### Generally use of Android Material Design
