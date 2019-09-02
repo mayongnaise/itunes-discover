@@ -48,7 +48,6 @@ public class HistoryHandlerActivity extends Activity {
             intent = new Intent(this, TrackDetailActivity.class);
             intent.putExtra("from_history", true);
         } else {
-            // assume default activity
             intent = new Intent(this, MainActivity.class);
         }
 
