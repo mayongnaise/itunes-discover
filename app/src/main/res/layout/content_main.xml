@@ -8,7 +8,7 @@
             type="com.nayam.itunesdiscover.viewmodel.MainViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
@@ -16,6 +16,7 @@
         android:orientation="vertical">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,7 +25,9 @@
             android:layout_gravity="center">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="visible"
                 android:id="@+id/recyclerViewTrack"
+                app:listVisibility="@{viewModel.isResultEmpty}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/_5sdp"
@@ -34,6 +37,18 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/emptyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emptyViewVisibility="@{viewModel.isResultEmpty}"
+            android:text="@string/no_search_result"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
 
 </layout>

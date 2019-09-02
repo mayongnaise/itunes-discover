@@ -62,10 +62,13 @@ public class MainActivity extends AppCompatActivity {
      */
     @BindView(R.id.recyclerViewTrack)
     RecyclerView rvTrackList;
+
     @BindView(R.id.pickerCountry)
     CountryCodePicker pkCountry;
+
     @BindView(R.id.segmentedCategories)
     SegmentedControl smCategories;
+
     @BindView(R.id.editTextTerm)
     EditText etTerm;
 
@@ -216,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
     @OnEditorAction(R.id.editTextTerm)
     public boolean onEditorAction(int actionId){
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            Utility.hideKeyboard(MainActivity.this, etTerm);
             attemptSearch();
             return true;
         }
@@ -228,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
      * The parameter key 'term' is required  by the iTunes Search api so check first if value is not empty before proceeding
      */
     private void attemptSearch(){
+        Utility.hideKeyboard(MainActivity.this, etTerm);
         String term = etTerm.getText().toString();
         if(TextUtils.isEmpty(term)) {
             Utility.setEditTextError(etTerm, getString(R.string.required));
@@ -262,6 +265,8 @@ public class MainActivity extends AppCompatActivity {
                 List<Track> tracks = ((TrackResponse) trackResponseResult.getResponse()).getResults();
                 trackArrayList.addAll(tracks);
                 trackRecyclerViewAdapter.notifyDataSetChanged();
+
+                mainViewModel.setIsResultEmpty(tracks.size() <= 0);
             }
             else{
                 // Show a message feedback to user when api response is not successful due to network error

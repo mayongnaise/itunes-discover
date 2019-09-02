@@ -33,6 +33,11 @@ public class MainViewModel extends ViewModel {
     private ObservableField<Boolean> isCategoryFilterVisible = new ObservableField<>();
 
     /**
+     * Observable value to determine if api call result returns with empty data
+     */
+    private ObservableField<Boolean> isResultEmpty = new ObservableField<>();
+
+    /**
      * Observable value of last search date which is binded on a {@link android.widget.TextView} widget
      */
     private ObservableField<String> lastSearch = new ObservableField<>();
@@ -52,13 +57,23 @@ public class MainViewModel extends ViewModel {
     }
 
     @BindingAdapter({"refreshVisibility"})
-    public static void setAnimatedVisibility(SwipeRefreshLayout view, boolean isRefreshing) {
+    public static void setRefreshVisibility(SwipeRefreshLayout view, boolean isRefreshing) {
         view.setRefreshing(isRefreshing);
     }
 
     @BindingAdapter({"animatedVisibility"})
     public static void setAnimatedVisibility(View view, boolean isVisible) {
         view.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
+    @BindingAdapter({"listVisibility"})
+    public static void setListVisibility(View view, boolean isEmpty) {
+        view.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+    }
+
+    @BindingAdapter({"emptyViewVisibility"})
+    public static void setEmptyViewVisibility(View view, boolean isEmpty) {
+        view.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
     }
 
     @BindingAdapter("countryValue")
@@ -106,4 +121,11 @@ public class MainViewModel extends ViewModel {
         this.country.postValue(country);
     }
 
+    public ObservableField<Boolean> getIsResultEmpty() {
+        return isResultEmpty;
+    }
+
+    public void setIsResultEmpty(boolean isResultEmpty) {
+        this.isResultEmpty.set(isResultEmpty);
+    }
 }

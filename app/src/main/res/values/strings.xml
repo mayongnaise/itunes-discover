@@ -34,4 +34,5 @@
     <string name="last_visit">Your last search was:</string>
     <string name="required">Required!</string>
     <string name="no_network_available">No Network Available</string>
+    <string name="no_search_result">Sorry, No Search Result.\n\nTry searching again.</string>
 </resources>
