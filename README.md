@@ -35,6 +35,22 @@ This is an application created for Appetiser Apps Code Challenge. It is written 
   
   e. Last media type searched - auto selected in the SegmentedControl. Same reasoning above.
   
-5. 
+5. Offline Support - Even though the network is not available on the user device, result list will be retrieved from a cached repository. If they attempted to perform a new search query, an error message stating the network is not available will be displayed.
+
+## UI & Design - Generally use of Android Material Design
+
+  a. Added [Shared Element Transitions](https://developer.android.com/training/transitions/start-activity) from the master list view to the detailed view.
+  b. Added [CollapsingToolbarLayout](https://developer.android.com/reference/android/support/design/widget/CollapsingToolbarLayout) for the detailed view.
+  c. Added [SwipeRefreshLayout](https://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout)
+  d. Use of [CardView](https://developer.android.com/reference/android/support/v7/widget/CardView) and [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView) for the master-detail screens.
+  e. Use of custom fonts: [Montserrat](https://www.fontsquirrel.com/fonts/montserrat) and [SF UI Display](https://www.cufonfonts.com/font/sf-ui-text-2)
+  f. Use of [Picasso](https://square.github.io/picasso/) as image loader
   
+## Why MVVM Pattern?
+
+I mainly used this pattern to separate all my UI controls from the api calls. I used <b>LiveData</b> and <b>ObservableFields<b> so my UI <b>View</b> controllers can observe whatever my <b>ViewModel</b> is doing with my <b>Model</b> objects. Additionally, I separated the setup and handling of network calls in a <b>Repository</b> class for cleaner code. 
+
+## References
+
+iTunes Web Service Documentation: https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#searching)
   
