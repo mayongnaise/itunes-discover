@@ -3,13 +3,14 @@ package com.nayam.itunesdiscover.model;
 import java.util.List;
 
 /**
+ * Model class for the API call response with {@link Track} as object type
+ *
  * @author May Ann Palencia on 31/08/2019
  * @version 1.0.0
  * @use
  * @desc Android Developer
- * @link https://www.sidekickdigital.co.uk/
  * @since 1.0
- * Copyright (c) 2019 Sidekick Digital Limited
+ * Copyright (c) 2019
  */
 public class TrackResponse {
 

@@ -8,15 +8,17 @@
 
     <application
         android:name="com.nayam.itunesdiscover.ItunesDiscoverApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:name=".view.ui.HistoryHandlerActivity"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +28,9 @@
         </activity>
         <activity
             android:name=".view.ui.TrackDetailActivity"
-            android:label="@string/title_activity_track_detail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.MainActivity"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

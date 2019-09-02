@@ -1,33 +1,33 @@
 package com.nayam.itunesdiscover.model;
 
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 /**
+ * Model class wrapper for an API Call response with generic type
+ *
  * @author May Ann Palencia on 01/09/2019
  * @version 1.0.0
  * @use
  * @desc Android Developer
- * @link https://www.sidekickdigital.co.uk/
  * @since 1.0
- * Copyright (c) 2019 Sidekick Digital Limited
+ * Copyright (c) 2019
  */
-public class TrackResponseResult<T> {
+public class ResponseResult<T> {
 
-    private T trackResponse;
+    private T response;
     private Response responseBody;
 
-    public TrackResponseResult(T trackResponse, Response responseBody){
-        this.trackResponse = trackResponse;
+    public ResponseResult(T response, Response responseBody){
+        this.response = response;
         this.responseBody = responseBody;
     }
 
-    public T getTrackResponse() {
-        return trackResponse;
+    public T getResponse() {
+        return response;
     }
 
-    public void setTrackResponse(T trackResponse) {
-        this.trackResponse = trackResponse;
+    public void setResponse(T response) {
+        this.response = response;
     }
 
     public Response getResponseBody() {

@@ -10,6 +10,16 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Model class to represent Track object
+ *
+ * @author May Ann Palencia on 01/09/2019
+ * @version 1.0.0
+ * @use
+ * @desc Android Developer
+ * @since 1.0
+ * Copyright (c) 2019
+ */
 public class Track {
 
     private String wrapperType;
@@ -49,10 +59,6 @@ public class Track {
     private Boolean isStreamable;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
     public Track() {
     }
 
@@ -394,6 +400,11 @@ public class Track {
         this.additionalProperties.put(name, value);
     }
 
+    /**
+     * Bind the value of {@link Track} getArtworkUrl100 to this view
+     * @param imageView The target {@link ImageView}
+     * @param imageURL The value of {@link Track} getArtworkUrl100
+     */
     @BindingAdapter({"artwork"})
     public static void loadImage(ImageView imageView, String imageURL) {
         Picasso.get()

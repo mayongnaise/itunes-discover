@@ -1,13 +1,15 @@
 package com.nayam.itunesdiscover.data.local;
 
 /**
+ *
+ * Interface to handle {@link SharedPreferenceHelper} methods
+ *
  * @author May Ann Palencia on 01/09/2019
  * @version 1.0.0
  * @use
  * @desc Android Developer
- * @link https://www.sidekickdigital.co.uk/
  * @since 1.0
- * Copyright (c) 2019 Sidekick Digital Limited
+ * Copyright (c) 2019
  */
 public interface PreferenceHelper {
 
@@ -27,9 +29,9 @@ public interface PreferenceHelper {
 
     void setMediaTypePosition(int position);
 
-    String getCountry();
+    String getCountryCode();
 
-    void setCountry(String country);
+    void setCountryCode(String countryCode);
 
     String getTerm();
 

@@ -3,13 +3,15 @@ package com.nayam.itunesdiscover.data.local;
 import com.nayam.itunesdiscover.utility.Utility;
 
 /**
+ *
+ * Helper class to manage {@link SharedPreferenceManager} methods
+ *
  * @author May Ann Palencia on 01/09/2019
  * @version 1.0.0
  * @use
  * @desc Android Developer
- * @link https://www.sidekickdigital.co.uk/
  * @since 1.0
- * Copyright (c) 2019 Sidekick Digital Limited
+ * Copyright (c) 2019
  */
 public class SharedPreferenceHelper implements PreferenceHelper {
 
@@ -58,13 +60,13 @@ public class SharedPreferenceHelper implements PreferenceHelper {
     }
 
     @Override
-    public String getCountry() {
-        return SharedPreferenceManager.getCountry();
+    public String getCountryCode() {
+        return SharedPreferenceManager.getCountryCode();
     }
 
     @Override
-    public void setCountry(String country) {
-        SharedPreferenceManager.setCountry(country);
+    public void setCountryCode(String countryCode) {
+        SharedPreferenceManager.setCountryCode(countryCode);
     }
 
     @Override

@@ -9,24 +9,42 @@ import androidx.lifecycle.ViewModel;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.hbb20.CountryCodePicker;
-import com.nayam.itunesdiscover.data.local.SharedPreferenceHelper;
 
 /**
+ * ViewModel of {@link com.nayam.itunesdiscover.view.ui.MainActivity} to manage UI data
+ *
  * @author May Ann Palencia on 01/09/2019
  * @version 1.0.0
  * @use
  * @desc Android Developer
- * @link https://www.sidekickdigital.co.uk/
  * @since 1.0
- * Copyright (c) 2019 Sidekick Digital Limited
+ * Copyright (c) 2019
  */
 public class MainViewModel extends ViewModel {
 
+    /**
+     * Observable value whether to show refreshing state of {@link SwipeRefreshLayout}
+     */
     private ObservableField<Boolean> isRefreshing = new ObservableField<>();
+
+    /**
+     * Observable value whether to show category filter
+     */
     private ObservableField<Boolean> isCategoryFilterVisible = new ObservableField<>();
 
+    /**
+     * Observable value of last search date which is binded on a {@link android.widget.TextView} widget
+     */
     private ObservableField<String> lastSearch = new ObservableField<>();
+
+    /**
+     * Observable value of term which is binded on a {@link android.widget.EditText} widget
+     */
     private ObservableField<String> searchTerm = new ObservableField<>();
+
+    /**
+     * Observable value of country code which is binded on {@link CountryCodePicker} widget
+     */
     private MutableLiveData<String> country = new MutableLiveData<>();
 
     public MainViewModel(){

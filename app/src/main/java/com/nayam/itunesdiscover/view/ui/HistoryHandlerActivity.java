@@ -7,16 +7,23 @@ import android.os.Bundle;
 import com.nayam.itunesdiscover.data.local.SharedPreferenceHelper;
 
 /**
- * @author May Ann Palencia on 02/09/2019
+ * Activity to handle activity history
+ *
+ * This activity will manage what activity to resume after the user kills the app. The activity screen to open will be based on
+ * the last saved activity in {@link android.content.SharedPreferences}
+ *
+ * @author May Ann Palencia on 01/09/2019
  * @version 1.0.0
  * @use
  * @desc Android Developer
- * @link https://www.sidekickdigital.co.uk/
  * @since 1.0
- * Copyright (c) 2019 Sidekick Digital Limited
+ * Copyright (c) 2019
  */
 public class HistoryHandlerActivity extends Activity {
 
+    /**
+     * Helper class to manage {@link android.content.SharedPreferences}
+     */
     SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper();
 
     @Override
@@ -28,6 +35,10 @@ public class HistoryHandlerActivity extends Activity {
 
     }
 
+    /**
+     * Evaluate activity to start based on class name
+     * @param lastActivity The class name of the last activity visited by the user
+     */
     public void handleHistory(String lastActivity){
         Intent intent;
 

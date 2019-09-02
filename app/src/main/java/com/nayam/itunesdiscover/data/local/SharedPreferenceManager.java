@@ -5,86 +5,166 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.nayam.itunesdiscover.utility.Constants;
-import com.nayam.itunesdiscover.utility.Utility;
 
 /**
- * <h1>SharedPreferenceManager</h1>
  *
- * @author  May Ann Palencia
- * @version 1.0
- * @since   2019-09-01
+ * Class to manage {@link SharedPreferences} editor
  *
- * Copyright © 2019 Sidekick Digital Limited. All rights reserved.
+ * @author May Ann Palencia on 01/09/2019
+ * @version 1.0.0
+ * @use
+ * @desc Android Developer
+ * @since 1.0
+ * Copyright (c) 2019
  */
 public class SharedPreferenceManager {
 
+    /**
+     * Preference KEY for last activity visited
+     */
     private static final String PREF_KEY_LAST_ACTIVITY = "PREF_KEY_LAST_ACTIVITY";
 
+    /**
+     * Preference KEY for last track selected
+     */
     private static final String PREF_KEY_LAST_TRACK_SAVED = "PREF_KEY_LAST_TRACK_SAVED";
 
+    /**
+     * Preference KEY for last date of calling Search API
+     */
     private static final String PREF_KEY_LAST_SEARCH_DATE = "PREF_KEY_LAST_SEARCH_DATE";
 
+    /**
+     * Preference KEY for selected media type position
+     */
     private static final String PREF_KEY_SEARCH_MEDIA_TYPE_POSITION = "PREF_KEY_SEARCH_MEDIA_TYPE_POSITION";
 
-    private static final String PREF_KEY_SEARCH_COUNTRY = "PREF_KEY_SEARCH_COUNTRY";
+    /**
+     * Preference KEY for selected country code
+     */
+    private static final String PREF_KEY_SEARCH_COUNTRY_CODE = "PREF_KEY_SEARCH_COUNTRY_CODE";
 
+    /**
+     * Preference KEY for search term value
+     */
     private static final String PREF_KEY_SEARCH_TERM = "PREF_KEY_SEARCH_TERM";
 
+    /**
+     * SharedPreferences instance
+     */
     private static SharedPreferences sharedPreferences;
 
+    /**
+     * Initialize by saving the value of SharedPreferences in a static field
+     * @param context Application context
+     */
     public static void initialize(Context context){
         sharedPreferences = getSharedPreference(context);
     }
 
-    public static SharedPreferences getSharedPreference(Context context){
+    /**
+     * Method to call a SharedPreferences instance
+     * @param context Application context
+     * @return The result is the default SharedPreferences instance of the application
+     */
+    private static SharedPreferences getSharedPreference(Context context){
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public static String getLastActivity() {
+    /**
+     *
+     * @return The result is the last activity saved
+     */
+    static String getLastActivity() {
         return sharedPreferences.getString(PREF_KEY_LAST_ACTIVITY, "");
     }
 
-    public static void setLastActivity(String activity) {
+    /**
+     * Save activity to {@link SharedPreferences}
+     *
+     * @param activity The activity class name to save
+     */
+    static void setLastActivity(String activity) {
         sharedPreferences.edit().putString(PREF_KEY_LAST_ACTIVITY, activity).apply();
     }
 
-    public static String getLastTrackSaved() {
+    /**
+     *
+     * @return The result is the string representation of the last {@link com.nayam.itunesdiscover.model.Track} saved
+     */
+    static String getLastTrackSaved() {
         return sharedPreferences.getString(PREF_KEY_LAST_TRACK_SAVED, "");
     }
 
-    public static void setLastTrackSaved(String track) {
+    /**
+     * Save a string representation of the last {@link com.nayam.itunesdiscover.model.Track} selected
+     * @param track The {@link com.nayam.itunesdiscover.model.Track} in string form to save
+     */
+    static void setLastTrackSaved(String track) {
         sharedPreferences.edit().putString(PREF_KEY_LAST_TRACK_SAVED, track).apply();
     }
 
-    public static String getLastSearchDate() {
+    /**
+     *
+     * @return The result is the value of the latest date when the Search API is called
+     */
+    static String getLastSearchDate() {
         return sharedPreferences.getString(PREF_KEY_LAST_SEARCH_DATE, "");
     }
 
-    public static void setLastSearchDate(String date) {
+    /**
+     * Save the last search date to {@link SharedPreferences}
+     * @param date The value of last search date to save in {@link SharedPreferences}
+     */
+    static void setLastSearchDate(String date) {
         sharedPreferences.edit().putString(PREF_KEY_LAST_SEARCH_DATE, date).apply();
     }
 
-    public static int getMediaTypePosition() {
+    /**
+     *
+     * @return The result is the current selected media type position
+     */
+    static int getMediaTypePosition() {
         return sharedPreferences.getInt(PREF_KEY_SEARCH_MEDIA_TYPE_POSITION, Constants.DEFAULT_MEDIA_POSITION);
     }
 
-    public static void setMediaTypePosition(int position) {
+    /**
+     * Save the last selected media type position to {@link SharedPreferences}
+     * @param position The value of position to save in {@link SharedPreferences}
+     */
+    static void setMediaTypePosition(int position) {
         sharedPreferences.edit().putInt(PREF_KEY_SEARCH_MEDIA_TYPE_POSITION, position).apply();
     }
 
-    public static String getCountry() {
-        return sharedPreferences.getString(PREF_KEY_SEARCH_COUNTRY, Constants.DEFAULT_COUNTRY);
+    /**
+     *
+     * @return The result is the current selected country code
+     */
+    static String getCountryCode() {
+        return sharedPreferences.getString(PREF_KEY_SEARCH_COUNTRY_CODE, Constants.DEFAULT_COUNTRY_CODE);
     }
 
-    public static void setCountry(String country) {
-        sharedPreferences.edit().putString(PREF_KEY_SEARCH_COUNTRY, country).apply();
+    /**
+     * Save the selected country code to {@link SharedPreferences}
+     * @param countryCode The value of the country code to save in {@link SharedPreferences}
+     */
+    static void setCountryCode(String countryCode) {
+        sharedPreferences.edit().putString(PREF_KEY_SEARCH_COUNTRY_CODE, countryCode).apply();
     }
 
-    public static String getTerm() {
+    /**
+     *
+     * @return The result is the last saved term
+     */
+    static String getTerm() {
         return sharedPreferences.getString(PREF_KEY_SEARCH_TERM, Constants.DEFAULT_TERM);
     }
 
-    public static void setTerm(String term) {
+    /**
+     * Save term to {@link SharedPreferences}
+     * @param term The value to save in {@link SharedPreferences}
+     */
+    static void setTerm(String term) {
         sharedPreferences.edit().putString(PREF_KEY_SEARCH_TERM, term).apply();
     }
 }

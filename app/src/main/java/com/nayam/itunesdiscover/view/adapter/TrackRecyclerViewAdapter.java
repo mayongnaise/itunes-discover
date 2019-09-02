@@ -18,12 +18,22 @@ import com.nayam.itunesdiscover.databinding.ItemListBinding;
 import com.nayam.itunesdiscover.model.Track;
 import com.nayam.itunesdiscover.model.TrackEvent;
 import com.nayam.itunesdiscover.view.ui.TrackDetailActivity;
-import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * Adapter class for our {@link RecyclerView} of {@link Track} list
+ *
+ * @author May Ann Palencia on 01/09/2019
+ * @version 1.0.0
+ * @use
+ * @desc Android Developer
+ * @since 1.0
+ * Copyright (c) 2019
+ */
 public class TrackRecyclerViewAdapter extends RecyclerView.Adapter<TrackRecyclerViewAdapter.TrackViewHolder> {
 
     private final Activity mActivity;
@@ -46,14 +56,16 @@ public class TrackRecyclerViewAdapter extends RecyclerView.Adapter<TrackRecycler
     @Override
     public void onBindViewHolder(@NonNull final TrackViewHolder holder, final int position) {
         Track track = mValues.get(position);
-        holder.itemListBinding.setTrack(track);
 
-        Log.d("TRACK", track.getArtworkUrl100());
+        // Bind value of track to this adapter UI
+        holder.itemListBinding.setTrack(track);
 
         holder.itemListBinding.layoutItem.setOnClickListener(view -> {
 
+            // Post event in EventBus so the subscriber can observe
             EventBus.getDefault().postSticky(new TrackEvent(track));
 
+            // Call activity to display detail with Shared element transition
             Intent in = new Intent(mActivity, TrackDetailActivity.class);
 
             Pair<View, String> pair1 = Pair.create(holder.itemListBinding.imageArtWork, "artWork");
