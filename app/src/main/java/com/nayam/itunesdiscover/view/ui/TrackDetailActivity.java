@@ -76,7 +76,7 @@ public class TrackDetailActivity extends AppCompatActivity {
      */
     @Override
     public void onResume() {
-        sharedPreferenceHelper.setLastActivity(getClass().getSimpleName());
+        sharedPreferenceHelper.setLastActivity(getClass().getName());
         super.onResume();
     }
 

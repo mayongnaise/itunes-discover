@@ -42,15 +42,17 @@ public class HistoryHandlerActivity extends Activity {
     public void handleHistory(String lastActivity){
         Intent intent;
 
-        if (lastActivity.equalsIgnoreCase(MainActivity.class.getSimpleName())) {
-            intent = new Intent(this, MainActivity.class);
-        } else if (lastActivity.equalsIgnoreCase(TrackDetailActivity.class.getSimpleName())) {
-            intent = new Intent(this, TrackDetailActivity.class);
-            intent.putExtra("from_history", true);
-        } else {
-            intent = new Intent(this, MainActivity.class);
+        Class<?> activityToOpen;
+
+        try {
+            activityToOpen = Class.forName(lastActivity);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            activityToOpen = MainActivity.class;
         }
 
+        intent = new Intent(this, activityToOpen);
+        intent.putExtra("from_history", true);
         startActivity(intent);
         finish();
     }
