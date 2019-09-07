@@ -31,30 +31,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <com.hbb20.CountryCodePicker
-            android:id="@+id/pickerCountry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:countryValue="@{viewModel.country}"
-            app:ccp_contentColor="@color/colorWhite"
-            app:ccp_textGravity="LEFT"
-            app:ccp_showNameCode="true"
-            app:ccp_showPhoneCode="false"
-            app:ccp_showFlag="true"
-            app:ccp_clickable="true"
-            app:ccpDialog_keyboardAutoPopup="true"
-            app:ccpDialog_allowSearch="true"
-            app:ccpDialog_showFastScroller="true"
-            app:ccpDialog_backgroundColor="@color/colorPrimary"
-            app:ccpDialog_searchEditTextTint="@color/colorAccent"
-            app:ccpDialog_textColor="@color/colorWhite"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            app:layout_constraintTop_toTopOf="@+id/textAppName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/textAppName"
-            tools:ignore="ContentDescription" />
-
         <androidx.cardview.widget.CardView
             android:id="@+id/layoutSearch"
             android:layout_width="match_parent"
@@ -112,6 +88,31 @@
 
 
         </androidx.cardview.widget.CardView>
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/pickerCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:countryValue="@{viewModel.country}"
+            app:ccp_contentColor="@color/colorWhite"
+            app:ccp_textGravity="LEFT"
+            app:ccp_showNameCode="true"
+            app:ccp_showPhoneCode="false"
+            app:ccp_showFlag="true"
+            app:ccp_clickable="true"
+            app:ccpDialog_keyboardAutoPopup="true"
+            app:ccpDialog_allowSearch="true"
+            app:ccpDialog_showFastScroller="true"
+            app:ccpDialog_backgroundColor="@color/colorPrimary"
+            app:ccpDialog_searchEditTextTint="@color/colorAccent"
+            app:ccpDialog_textColor="@color/colorWhite"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@+id/textAppName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/textAppName"
+            tools:ignore="ContentDescription" />
+
 
         <segmented_control.widget.custom.android.com.segmentedcontrol.SegmentedControl
             android:visibility="gone"

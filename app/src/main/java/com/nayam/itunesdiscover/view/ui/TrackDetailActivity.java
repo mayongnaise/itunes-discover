@@ -117,7 +117,7 @@ public class TrackDetailActivity extends AppCompatActivity {
         if(fromHistory){
             // Get the last selected track saved from preferences and assign as the current track to bind on UI
             Track lastTrackSaved = convertStringToTrack(sharedPreferenceHelper.getLastTrackSaved());
-            activityTrackDetailBinding.layoutContentDetail.setTrack(lastTrackSaved);
+            activityTrackDetailBinding.setTrack(lastTrackSaved);
             setToolBarTitle(lastTrackSaved);
         }
 
@@ -142,7 +142,7 @@ public class TrackDetailActivity extends AppCompatActivity {
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEvent(TrackEvent trackEvent) {
         sharedPreferenceHelper.setLastTrackSaved(convertTrackToString(trackEvent.getTrack()));
-        activityTrackDetailBinding.layoutContentDetail.setTrack(trackEvent.getTrack());
+        activityTrackDetailBinding.setTrack(trackEvent.getTrack());
 
         setToolBarTitle(trackEvent.getTrack());
 

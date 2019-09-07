@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.hbb20.CountryCodePicker;
 import com.nayam.itunesdiscover.R;
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.recyclerViewTrack)
     RecyclerView rvTrackList;
 
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout srlLoading;
+
     @BindView(R.id.pickerCountry)
     CountryCodePicker pkCountry;
 
@@ -71,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.editTextTerm)
     EditText etTerm;
+
+    String countryCode = Constants.DEFAULT_COUNTRY_CODE;
+
+    int mediaTypePosition = Constants.DEFAULT_MEDIA_POSITION;
+
+    String term = Constants.DEFAULT_TERM;
 
     /**
      * {@link ArrayList} to hold the resulting track items from API call
@@ -131,9 +141,7 @@ public class MainActivity extends AppCompatActivity {
         trackViewModel = ViewModelProviders.of(this).get(TrackViewModel.class);
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
-        activityMainBinding.layoutHeader.setViewModel(mainViewModel);
-        activityMainBinding.layoutContentMain.setViewModel(mainViewModel);
+        activityMainBinding.setViewModel(mainViewModel);
 
     }
 
@@ -145,19 +153,18 @@ public class MainActivity extends AppCompatActivity {
         // Set term value and bind it to the search EditText widget
         mainViewModel.setSearchTerm(sharedPreferenceHelper.getTerm());
 
-        // Set country value and bind it to the CountryPicker widget
-        mainViewModel.setCountry(sharedPreferenceHelper.getCountryCode());
-        pkCountry.setCountryForNameCode(sharedPreferenceHelper.getCountryCode());
-        pkCountry.setCountryPreference(String.format("%s,%s", Utility.getDeviceCountryCode(MainActivity.this), Constants.DEFAULT_COUNTRY_CODE));
-
         // Set last search date and bind it to the date TextView widget
         mainViewModel.setLastSearch(Utility.formatDate(sharedPreferenceHelper.getLastSearchDate()));
 
+        // Set selected country and preference
+        pkCountry.setCountryForNameCode(sharedPreferenceHelper.getCountryCode());
+        pkCountry.setCountryPreference(String.format("%s,%s", Utility.getDeviceCountryCode(MainActivity.this), Constants.DEFAULT_COUNTRY_CODE));
+
         // Set media type and bind it to the SegmentedControl widget
-        activityMainBinding.layoutHeader.segmentedCategories.setSelectedSegment(sharedPreferenceHelper.getMediaTypePosition());
+        smCategories.setSelectedSegment(sharedPreferenceHelper.getMediaTypePosition());
 
         // Calling attemptSearch method when user swipes the track list to attempt calling Search API
-        activityMainBinding.layoutContentMain.swipeRefreshLayout.setOnRefreshListener(this::attemptSearch);
+        srlLoading.setOnRefreshListener(this::attemptSearch);
 
         observeCountryCodeValue();
 
@@ -171,9 +178,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void observeCountryCodeValue(){
         mainViewModel.getCountry().observe(this, countryCode -> {
-            // Save new value of country code locally
-            sharedPreferenceHelper.setCountryCode(countryCode);
-            callSearch();
+            this.countryCode = countryCode;
+            attemptSearch();
         });
 
     }
@@ -185,9 +191,7 @@ public class MainActivity extends AppCompatActivity {
 
         smCategories.addOnSegmentClickListener(segmentViewHolder -> {
 
-            // Save new value of media type position locally
-            sharedPreferenceHelper.setMediaTypePosition(segmentViewHolder.getAbsolutePosition());
-
+            mediaTypePosition = segmentViewHolder.getAbsolutePosition();
             attemptSearch();
 
         });
@@ -231,19 +235,37 @@ public class MainActivity extends AppCompatActivity {
      */
     private void attemptSearch(){
         Utility.hideKeyboard(MainActivity.this, etTerm);
-        String term = etTerm.getText().toString();
+        term = etTerm.getText().toString();
+
         if(TextUtils.isEmpty(term)) {
             Utility.setEditTextError(etTerm, getString(R.string.required));
             return;
         }
 
-        sharedPreferenceHelper.setTerm(term);
+        saveData();
 
-        sharedPreferenceHelper.setLastSearchDate(Utility.getCurrentDateTime());
         mainViewModel.setLastSearch(Utility.formatDate(sharedPreferenceHelper.getLastSearchDate()));
 
         callSearch();
 
+    }
+
+    /**
+     * Method to save the data on {@link android.content.SharedPreferences}
+     */
+    public void saveData(){
+
+        // Save new value of country code locally
+        sharedPreferenceHelper.setCountryCode(countryCode);
+
+        // Save new value of search term locally
+        sharedPreferenceHelper.setTerm(term);
+
+        // Save new value of media type position locally
+        sharedPreferenceHelper.setMediaTypePosition(mediaTypePosition);
+
+        // Save new value of last search date locally
+        sharedPreferenceHelper.setLastSearchDate(Utility.getCurrentDateTime());
     }
 
     /**
