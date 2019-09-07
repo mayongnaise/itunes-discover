@@ -13,6 +13,7 @@ import com.nayam.itunesdiscover.data.local.SharedPreferenceHelper;
 import com.nayam.itunesdiscover.databinding.ActivityTrackDetailBinding;
 import com.nayam.itunesdiscover.model.Track;
 import com.nayam.itunesdiscover.model.TrackEvent;
+import com.nayam.itunesdiscover.view.base.BaseActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -34,7 +35,7 @@ import butterknife.ButterKnife;
  * @since 1.0
  * Copyright (c) 2019
  */
-public class TrackDetailActivity extends AppCompatActivity {
+public class TrackDetailActivity extends BaseActivity {
 
     /**
      * Data binding for activity
@@ -103,12 +104,16 @@ public class TrackDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    protected int layoutRes() {
+        return R.layout.activity_track_detail;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Obtain binding object using the Data Binding library
-        activityTrackDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_track_detail);
-        ButterKnife.bind(this);
+        activityTrackDetailBinding = (ActivityTrackDetailBinding) getActivityMainBinding();
 
         setToolBar();
 

@@ -23,6 +23,7 @@ import com.nayam.itunesdiscover.model.TrackResponse;
 import com.nayam.itunesdiscover.utility.Constants;
 import com.nayam.itunesdiscover.utility.Utility;
 import com.nayam.itunesdiscover.view.adapter.TrackRecyclerViewAdapter;
+import com.nayam.itunesdiscover.view.base.BaseActivity;
 import com.nayam.itunesdiscover.viewmodel.MainViewModel;
 import com.nayam.itunesdiscover.viewmodel.TrackViewModel;
 
@@ -51,7 +52,7 @@ import segmented_control.widget.custom.android.com.segmentedcontrol.SegmentedCon
  * @since 1.0
  * Copyright (c) 2019
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     /**
      * Data binding for activity
@@ -117,13 +118,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected int layoutRes() {
+        return R.layout.activity_main;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         // Obtain binding object using the Data Binding library
-        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        ButterKnife.bind(this);
+        activityMainBinding = (ActivityMainBinding) getActivityMainBinding();
 
         setViewModel();
 
