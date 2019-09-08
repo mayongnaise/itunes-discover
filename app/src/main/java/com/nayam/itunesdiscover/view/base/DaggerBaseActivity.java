@@ -2,11 +2,9 @@ package com.nayam.itunesdiscover.view.base;
 
 import android.os.Bundle;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 
 import com.nayam.itunesdiscover.data.local.SharedPreferenceManager;
 import com.nayam.itunesdiscover.di.component.ApplicationComponent;
@@ -18,7 +16,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 
 /**
- * @author May Ann Palencia on 08/09/2019
+ * @author May Ann Palencia on 09/09/2019
  * @version 1.0.0
  * @use
  * @desc Android Developer
@@ -26,24 +24,24 @@ import butterknife.ButterKnife;
  * @since 1.0
  * Copyright (c) 2019 Sidekick Digital Limited
  */
-public abstract class BaseActivity extends DaggerBaseActivity {
+public abstract class DaggerBaseActivity extends AppCompatActivity {
 
-    private ViewDataBinding activityMainBinding;
-
-    @LayoutRes
-    protected abstract int layoutRes();
+    @Inject
+    SharedPreferenceManager sharedPreferenceManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Obtain binding object using the Data Binding library
-        activityMainBinding = DataBindingUtil.setContentView(this, layoutRes());
-        ButterKnife.bind(this);
+
+        ApplicationComponent component = DaggerApplicationComponent.builder()
+                .contextModule(new ContextModule(this))
+                .build();
+        sharedPreferenceManager = component.initializeSharedPreferenceManager();
 
     }
 
-    public ViewDataBinding getActivityMainBinding() {
-        return activityMainBinding;
+    public SharedPreferenceManager getSharedPreferenceManager() {
+        return sharedPreferenceManager;
     }
 
 }

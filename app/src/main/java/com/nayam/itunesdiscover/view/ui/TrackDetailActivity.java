@@ -3,13 +3,10 @@ package com.nayam.itunesdiscover.view.ui;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
 
 import com.google.gson.Gson;
 import com.nayam.itunesdiscover.R;
-import com.nayam.itunesdiscover.data.local.SharedPreferenceHelper;
 import com.nayam.itunesdiscover.databinding.ActivityTrackDetailBinding;
 import com.nayam.itunesdiscover.model.Track;
 import com.nayam.itunesdiscover.model.TrackEvent;
@@ -20,7 +17,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Activity to display the detail of the selected track
@@ -49,11 +45,6 @@ public class TrackDetailActivity extends BaseActivity {
     Toolbar mToolBar;
 
     /**
-     * Helper class to manage {@link android.content.SharedPreferences}
-     */
-    SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper();
-
-    /**
      * Whether the activity is called from {@link HistoryHandlerActivity}
      */
     boolean fromHistory = false;
@@ -77,7 +68,7 @@ public class TrackDetailActivity extends BaseActivity {
      */
     @Override
     public void onResume() {
-        sharedPreferenceHelper.setLastActivity(getClass().getName());
+        getSharedPreferenceManager().setLastActivity(getClass().getName());
         super.onResume();
     }
 
@@ -121,7 +112,7 @@ public class TrackDetailActivity extends BaseActivity {
         fromHistory = intent.getBooleanExtra("from_history", false);
         if(fromHistory){
             // Get the last selected track saved from preferences and assign as the current track to bind on UI
-            Track lastTrackSaved = convertStringToTrack(sharedPreferenceHelper.getLastTrackSaved());
+            Track lastTrackSaved = convertStringToTrack(getSharedPreferenceManager().getLastTrackSaved());
             activityTrackDetailBinding.setTrack(lastTrackSaved);
             setToolBarTitle(lastTrackSaved);
         }
@@ -146,7 +137,7 @@ public class TrackDetailActivity extends BaseActivity {
      */
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEvent(TrackEvent trackEvent) {
-        sharedPreferenceHelper.setLastTrackSaved(convertTrackToString(trackEvent.getTrack()));
+        getSharedPreferenceManager().setLastTrackSaved(convertTrackToString(trackEvent.getTrack()));
         activityTrackDetailBinding.setTrack(trackEvent.getTrack());
 
         setToolBarTitle(trackEvent.getTrack());

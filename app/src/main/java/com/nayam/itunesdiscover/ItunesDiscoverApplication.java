@@ -3,8 +3,6 @@ package com.nayam.itunesdiscover;
 import android.app.Application;
 import android.content.Context;
 
-import com.nayam.itunesdiscover.data.local.SharedPreferenceManager;
-
 /**
  * Application Class
  *
@@ -37,8 +35,6 @@ public class ItunesDiscoverApplication extends Application {
 
         super.onCreate();
 
-        // Initialize SharedPreferences
-        SharedPreferenceManager.initialize(this);
     }
 
 }

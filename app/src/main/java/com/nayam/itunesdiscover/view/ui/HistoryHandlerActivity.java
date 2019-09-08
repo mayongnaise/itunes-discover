@@ -1,10 +1,10 @@
 package com.nayam.itunesdiscover.view.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.nayam.itunesdiscover.data.local.SharedPreferenceHelper;
+import com.nayam.itunesdiscover.view.base.BaseActivity;
+import com.nayam.itunesdiscover.view.base.DaggerBaseActivity;
 
 /**
  * Activity to handle activity history
@@ -19,19 +19,14 @@ import com.nayam.itunesdiscover.data.local.SharedPreferenceHelper;
  * @since 1.0
  * Copyright (c) 2019
  */
-public class HistoryHandlerActivity extends Activity {
-
-    /**
-     * Helper class to manage {@link android.content.SharedPreferences}
-     */
-    SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper();
+public class HistoryHandlerActivity extends DaggerBaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        handleHistory(sharedPreferenceHelper.getLastActivity());
+        handleHistory(getSharedPreferenceManager().getLastActivity());
 
     }
 

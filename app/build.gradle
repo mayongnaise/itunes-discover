@@ -36,7 +36,13 @@ dependencies {
     implementation 'com.ncornette.cache:okcache-control:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.intellij:annotations:12.0@jar'
+
     implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    implementation 'com.google.dagger:dagger:2.13'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
+
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -45,7 +51,6 @@ dependencies {
     implementation 'com.github.RobertApikyan:SegmentedControl:1.2.0'
     implementation 'com.hbb20:ccp:2.3.1'
 
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

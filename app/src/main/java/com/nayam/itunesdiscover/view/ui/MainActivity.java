@@ -6,8 +6,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +14,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.hbb20.CountryCodePicker;
 import com.nayam.itunesdiscover.R;
-import com.nayam.itunesdiscover.data.local.SharedPreferenceHelper;
 import com.nayam.itunesdiscover.databinding.ActivityMainBinding;
 import com.nayam.itunesdiscover.model.Track;
 import com.nayam.itunesdiscover.model.TrackResponse;
@@ -31,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnEditorAction;
 import segmented_control.widget.custom.android.com.segmentedcontrol.SegmentedControl;
 
@@ -104,16 +100,11 @@ public class MainActivity extends BaseActivity {
     MainViewModel mainViewModel;
 
     /**
-     * Helper class to manage {@link android.content.SharedPreferences}
-     */
-    SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper();
-
-    /**
      * Saving the {@link MainActivity} as the last visited activity
      */
     @Override
     public void onResume() {
-        sharedPreferenceHelper.setLastActivity(getClass().getName());
+        getSharedPreferenceManager().setLastActivity(getClass().getName());
         super.onResume();
     }
 
@@ -156,17 +147,17 @@ public class MainActivity extends BaseActivity {
     public void setUI(){
 
         // Set term value and bind it to the search EditText widget
-        mainViewModel.setSearchTerm(sharedPreferenceHelper.getTerm());
+        mainViewModel.setSearchTerm(getSharedPreferenceManager().getTerm());
 
         // Set last search date and bind it to the date TextView widget
-        mainViewModel.setLastSearch(Utility.formatDate(sharedPreferenceHelper.getLastSearchDate()));
+        mainViewModel.setLastSearch(Utility.formatDate(getSharedPreferenceManager().getLastSearchDate()));
 
         // Set selected country and preference
-        pkCountry.setCountryForNameCode(sharedPreferenceHelper.getCountryCode());
+        pkCountry.setCountryForNameCode(getSharedPreferenceManager().getCountryCode());
         pkCountry.setCountryPreference(String.format("%s,%s", Utility.getDeviceCountryCode(MainActivity.this), Constants.DEFAULT_COUNTRY_CODE));
 
         // Set media type and bind it to the SegmentedControl widget
-        smCategories.setSelectedSegment(sharedPreferenceHelper.getMediaTypePosition());
+        smCategories.setSelectedSegment(getSharedPreferenceManager().getMediaTypePosition());
 
         // Calling attemptSearch method when user swipes the track list to attempt calling Search API
         srlLoading.setOnRefreshListener(this::attemptSearch);
@@ -249,7 +240,7 @@ public class MainActivity extends BaseActivity {
 
         saveData();
 
-        mainViewModel.setLastSearch(Utility.formatDate(sharedPreferenceHelper.getLastSearchDate()));
+        mainViewModel.setLastSearch(Utility.formatDate(getSharedPreferenceManager().getLastSearchDate()));
 
         callSearch();
 
@@ -261,16 +252,16 @@ public class MainActivity extends BaseActivity {
     public void saveData(){
 
         // Save new value of country code locally
-        sharedPreferenceHelper.setCountryCode(countryCode);
+        getSharedPreferenceManager().setCountryCode(countryCode);
 
         // Save new value of search term locally
-        sharedPreferenceHelper.setTerm(term);
+        getSharedPreferenceManager().setTerm(term);
 
         // Save new value of media type position locally
-        sharedPreferenceHelper.setMediaTypePosition(mediaTypePosition);
+        getSharedPreferenceManager().setMediaTypePosition(mediaTypePosition);
 
         // Save new value of last search date locally
-        sharedPreferenceHelper.setLastSearchDate(Utility.getCurrentDateTime());
+        getSharedPreferenceManager().setLastSearchDate(Utility.getCurrentDateTime());
     }
 
     /**
@@ -278,7 +269,7 @@ public class MainActivity extends BaseActivity {
      */
     public void callSearch(){
         trackArrayList.clear();
-        trackViewModel.searchTrack(sharedPreferenceHelper.getTerm(), sharedPreferenceHelper.getCountryCode(), Utility.getMediaType(MainActivity.this, sharedPreferenceHelper.getMediaTypePosition()));
+        trackViewModel.searchTrack(getSharedPreferenceManager().getTerm(), getSharedPreferenceManager().getCountryCode(), Utility.getMediaType(MainActivity.this, getSharedPreferenceManager().getMediaTypePosition()));
         observeTrackDataResponse();
     }
 
