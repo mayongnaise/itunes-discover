@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel;
 import com.nayam.itunesdiscover.data.remote.TrackRepository;
 import com.nayam.itunesdiscover.model.ResponseResult;
 
+import javax.inject.Inject;
+
 /**
  * ViewModel of {@link com.nayam.itunesdiscover.model.Track} to manage UI data
  *
@@ -25,18 +27,12 @@ public class TrackViewModel extends ViewModel {
     private MutableLiveData<ResponseResult> mutableLiveData;
 
     /**
-     * Repository of {@link com.nayam.itunesdiscover.model.Track} api call
-     */
-    private TrackRepository trackRepository;
-
-    /**
      * Call Search API and retrieve a LiveData to be observed by the UI
      * @param term
      * @param country
      * @param mediaType
      */
-    public void searchTrack(String term, String country, String mediaType){
-        trackRepository = TrackRepository.getInstance();
+    public void searchTrack(TrackRepository trackRepository, String term, String country, String mediaType){
         mutableLiveData = trackRepository.searchTrack(term, country, mediaType);
     }
 

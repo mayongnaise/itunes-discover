@@ -1,19 +1,11 @@
-package com.nayam.itunesdiscover.view.base;
+package com.nayam.itunesdiscover.base;
 
 import android.os.Bundle;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-
-import com.nayam.itunesdiscover.data.local.SharedPreferenceManager;
-import com.nayam.itunesdiscover.di.component.ApplicationComponent;
-import com.nayam.itunesdiscover.di.component.DaggerApplicationComponent;
-import com.nayam.itunesdiscover.di.module.ContextModule;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 

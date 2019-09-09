@@ -10,7 +10,7 @@ import com.nayam.itunesdiscover.R;
 import com.nayam.itunesdiscover.databinding.ActivityTrackDetailBinding;
 import com.nayam.itunesdiscover.model.Track;
 import com.nayam.itunesdiscover.model.TrackEvent;
-import com.nayam.itunesdiscover.view.base.BaseActivity;
+import com.nayam.itunesdiscover.base.BaseActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

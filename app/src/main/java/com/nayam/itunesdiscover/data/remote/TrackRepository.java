@@ -7,6 +7,8 @@ import com.nayam.itunesdiscover.model.TrackResponse;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,31 +27,18 @@ import retrofit2.Response;
 public class TrackRepository {
 
     /**
-     * Network repository for our {@link TrackApi} implementation
-     */
-    private static TrackRepository trackRepository;
-
-    /**
-     *
-     * @return This will return the instance of our repository
-     */
-    public static TrackRepository getInstance(){
-        if (trackRepository == null){
-            trackRepository = new TrackRepository();
-        }
-        return trackRepository;
-    }
-
-    /**
      * The API interface to use
      */
+
     private TrackApi trackApi;
 
     /**
      * Initializing the interface to implement
      */
-    public TrackRepository(){
-        trackApi = RetrofitService.createService(TrackApi.class);
+
+    @Inject
+    public TrackRepository(TrackApi trackApi){
+        this.trackApi = trackApi;
     }
 
     /**

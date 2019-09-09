@@ -20,7 +20,7 @@ import com.nayam.itunesdiscover.model.TrackResponse;
 import com.nayam.itunesdiscover.utility.Constants;
 import com.nayam.itunesdiscover.utility.Utility;
 import com.nayam.itunesdiscover.view.adapter.TrackRecyclerViewAdapter;
-import com.nayam.itunesdiscover.view.base.BaseActivity;
+import com.nayam.itunesdiscover.base.BaseActivity;
 import com.nayam.itunesdiscover.viewmodel.MainViewModel;
 import com.nayam.itunesdiscover.viewmodel.TrackViewModel;
 
@@ -269,7 +269,7 @@ public class MainActivity extends BaseActivity {
      */
     public void callSearch(){
         trackArrayList.clear();
-        trackViewModel.searchTrack(getSharedPreferenceManager().getTerm(), getSharedPreferenceManager().getCountryCode(), Utility.getMediaType(MainActivity.this, getSharedPreferenceManager().getMediaTypePosition()));
+        trackViewModel.searchTrack(getTrackRepository(), getSharedPreferenceManager().getTerm(), getSharedPreferenceManager().getCountryCode(), Utility.getMediaType(MainActivity.this, getSharedPreferenceManager().getMediaTypePosition()));
         observeTrackDataResponse();
     }
 

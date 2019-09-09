@@ -3,8 +3,8 @@ package com.nayam.itunesdiscover.view.ui;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.nayam.itunesdiscover.view.base.BaseActivity;
-import com.nayam.itunesdiscover.view.base.DaggerBaseActivity;
+import com.nayam.itunesdiscover.base.BaseActivity;
+import com.nayam.itunesdiscover.base.DaggerBaseActivity;
 
 /**
  * Activity to handle activity history

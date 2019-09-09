@@ -6,7 +6,6 @@ import com.nayam.itunesdiscover.data.local.SharedPreferenceManager;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 

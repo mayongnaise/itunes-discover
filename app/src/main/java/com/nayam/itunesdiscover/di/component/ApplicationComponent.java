@@ -1,9 +1,10 @@
 package com.nayam.itunesdiscover.di.component;
 
-import android.content.Context;
-
 import com.nayam.itunesdiscover.data.local.SharedPreferenceManager;
+import com.nayam.itunesdiscover.data.remote.TrackApi;
+import com.nayam.itunesdiscover.data.remote.TrackRepository;
 import com.nayam.itunesdiscover.di.module.SharedPreferenceManagerModule;
+import com.nayam.itunesdiscover.di.module.TrackRepositoryModule;
 
 import javax.inject.Singleton;
 
@@ -20,8 +21,12 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = SharedPreferenceManagerModule.class)
+@Component(modules = {SharedPreferenceManagerModule.class, TrackRepositoryModule.class})
 public interface ApplicationComponent {
 
     SharedPreferenceManager initializeSharedPreferenceManager();
+
+    TrackRepository getTrackRepository();
+
+    TrackApi getTrackService();
 }

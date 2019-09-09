@@ -2,8 +2,6 @@ package com.nayam.itunesdiscover.di.module;
 
 import android.content.Context;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
