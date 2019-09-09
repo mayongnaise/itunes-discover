@@ -79,7 +79,7 @@ iTunes Web Service Documentation: https://affiliate.itunes.apple.com/resources/d
 
    - [RoundedImageView](https://github.com/vinc3m1/RoundedImageView)
    - [Retrofit](https://square.github.io/retrofit/)
-   - [Dagger2] (https://github.com/google/dagger)
+   - [Dagger2](https://github.com/google/dagger)
    - [ButterKnife](https://jakewharton.github.io/butterknife/)
    - [EventBus](https://github.com/greenrobot/EventBus)
    - [SDP](https://github.com/intuit/sdp)
