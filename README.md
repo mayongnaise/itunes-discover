@@ -1,6 +1,6 @@
 # iTunes Discover
 
-This is an application created for Appetiser Apps Code Challenge. It is written in Java and developed using Android MVVM framework.
+This is an application created for Appetiser Apps Code Challenge. It is written in Java and developed using Android MVVM pattern.
 
 ## Download
 
