@@ -28,5 +28,4 @@ public interface ApplicationComponent {
 
     TrackRepository getTrackRepository();
 
-    TrackApi getTrackService();
 }

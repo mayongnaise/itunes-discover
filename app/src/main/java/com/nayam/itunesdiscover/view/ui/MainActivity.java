@@ -281,16 +281,18 @@ public class MainActivity extends BaseActivity {
         trackViewModel.getTrackRepository().observe(this, trackResponseResult -> {
             if(trackResponseResult.getResponseBody().isSuccessful()){
                 List<Track> tracks = ((TrackResponse) trackResponseResult.getResponse()).getResults();
-                trackArrayList.addAll(tracks);
-                trackRecyclerViewAdapter.notifyDataSetChanged();
-
                 mainViewModel.setIsResultEmpty(tracks.size() <= 0);
+                trackArrayList.addAll(tracks);
             }
             else{
                 // Show a message feedback to user when api response is not successful due to network error
-                if(!Utility.isNetworkAvailable(MainActivity.this))
+                if(!Utility.isNetworkAvailable(MainActivity.this)) {
                     Toast.makeText(MainActivity.this, getString(R.string.no_network_available), Toast.LENGTH_SHORT).show();
+                    trackArrayList.clear();
+                }
             }
+
+            trackRecyclerViewAdapter.notifyDataSetChanged();
             mainViewModel.setRefreshing(false);
         });
 

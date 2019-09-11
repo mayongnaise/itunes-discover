@@ -2,7 +2,9 @@ package com.nayam.itunesdiscover.data.remote;
 
 import com.nayam.itunesdiscover.model.TrackResponse;
 
+import io.reactivex.Single;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -27,6 +29,6 @@ public interface TrackApi {
      * @return This will return a Call object with type {@link TrackResponse}
      */
     @GET("/search")
-    Call<TrackResponse> searchTracks(@Query("term") String term, @Query("country") String country, @Query("media") String media);
+    Single<Response<TrackResponse>> searchTracks(@Query("term") String term, @Query("country") String country, @Query("media") String media);
 
 }
