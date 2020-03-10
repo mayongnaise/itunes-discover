@@ -1,6 +1,6 @@
 # iTunes Discover
 
-This is an application created for Appetiser Apps Code Challenge. It is written in Java and developed using Android MVVM pattern.
+Written in Java and developed using Android MVVM pattern.
 
 ## Download
 
@@ -65,11 +65,6 @@ Download APK Installer [here](https://www.dropbox.com/s/0svwineujv7d16h/itunes-d
   
    - Use of [Picasso](https://square.github.io/picasso/) as image loader
   
-  
-## Why MVVM Pattern?
-
-   - I mainly used this pattern to separate all my UI controls from the api calls. I used <b>LiveData</b> and <b>ObservableFields</b> so my UI <b>View</b> controllers can observe whatever my <b>ViewModel</b> is doing with my <b>Model</b> objects. Additionally, I separated the setup and handling of network calls in a <b>Repository</b> class as well as the helpers and utilities for a cleaner code. 
-   
 
 ## References
 
